@@ -1,0 +1,39 @@
+Por supuesto, aquí tienes los pasos detallados para instalar Mosquitto, habilitar la compatibilidad con WebSocket y configurar Mosquitto en Ubuntu:
+
+Instalar Mosquitto:Abre una terminal y ejecuta los siguientes comandos:
+
+sudo apt update
+sudo apt install mosquitto mosquitto-clients
+
+Esto instalará Mosquitto, el servidor MQTT, y Mosquitto Clients, que incluye las herramientas de línea de comandos para interactuar con el servidor MQTT.
+Instalar el módulo de WebSocket para Mosquitto:Mosquitto no incluye soporte para WebSocket de forma predeterminada en algunas distribuciones. Para habilitar la compatibilidad con WebSocket, necesitas compilar Mosquitto con el módulo WebSocket.Primero, asegúrate de tener las herramientas necesarias para compilar software:
+
+sudo apt install build-essential libssl-dev cmake
+
+Luego, clona el repositorio de Mosquitto y compila el servidor con el módulo WebSocket:
+
+
+git clone -b v2.0.11 https://github.com/eclipse/mosquitto.git
+cd mosquitto
+git checkout v2.0.11 # Asegúrate de estar en la última versión estable
+cmake -Bbuild -H. -DWITH_WEBSOCKETS=ON
+sudo cmake --build build/
+sudo cmake --install build/
+Este proceso descarga el código fuente de Mosquitto, cambia a la versión estable más reciente, compila Mosquitto con el soporte de WebSocket y lo instala en tu sistema.
+Configurar Mosquitto:Abre el archivo de configuración de Mosquitto en un editor de texto:
+
+
+sudo nano /etc/mosquitto/mosquitto.conf
+Agrega las siguientes líneas al archivo de configuración para habilitar el protocolo WebSocket en el puerto 9001:
+conf
+
+listener 1883 0.0.0.0
+
+listener 9001 0.0.0.0
+protocol websockets
+
+Guarda los cambios y cierra el editor de texto.
+Reiniciar Mosquitto:Después de realizar los cambios en la configuración, reinicia el servicio Mosquitto para aplicar los cambios:
+
+sudo systemctl restart mosquitto
+Mosquitto ahora estará configurado para aceptar conexiones tanto a través del protocolo MQTT sobre TCP en el puerto 1883 como a través de WebSocket en el puerto 9001.

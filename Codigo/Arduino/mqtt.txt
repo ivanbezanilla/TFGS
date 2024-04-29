@@ -1,0 +1,36 @@
+allow_anonymous true
+listener 1883
+
+connection bridge-apache
+address 53.73.81.84:1883
+topic sensores/# both 0
+
+<?php
+require_once("phpMQTT.php");
+
+$mqtt_server = "localhost";
+$mqtt_topic = "sensores";
+
+$mqtt = new Bluerhinos\phpMQTT($mqtt_server, 1883, "ClientID".rand());
+
+if ($mqtt->connect()) {
+    $topics[$mqtt_topic] = ["qos" => 0, "function" => function ($topic, $msg) {
+        // Log the message
+        error_log("Received message from MQTT: " . $msg);
+        // Output the message
+        echo $msg;
+    }];
+
+    $mqtt->subscribe($topics);
+    
+    while ($mqtt->proc()) {
+        // Process messages
+    }
+
+    $mqtt->close();
+} else {
+    // Log connection error
+    error_log("Error connecting to MQTT server");
+    echo "Error al conectar al servidor MQTT";
+}
+?>
