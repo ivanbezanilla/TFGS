@@ -19,11 +19,13 @@ git checkout v2.0.11 # Asegúrate de estar en la última versión estable
 cmake -Bbuild -H. -DWITH_WEBSOCKETS=ON
 sudo cmake --build build/
 sudo cmake --install build/
+
+
 Este proceso descarga el código fuente de Mosquitto, cambia a la versión estable más reciente, compila Mosquitto con el soporte de WebSocket y lo instala en tu sistema.
 Configurar Mosquitto:Abre el archivo de configuración de Mosquitto en un editor de texto:
 
-
 sudo nano /etc/mosquitto/mosquitto.conf
+
 Agrega las siguientes líneas al archivo de configuración para habilitar el protocolo WebSocket en el puerto 9001:
 conf
 
