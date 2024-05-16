@@ -1,1 +1,0 @@
-mosquitto_pub -h localhost -p 1884 -t sensores -m "Temperatura: 27C, Humedad: 50%, Humedad del suelo: 39%, id_ard: 1"
