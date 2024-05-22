@@ -1,0 +1,6 @@
+Explicar ensamblaje y cableado
+Modificar fuente ATX
+Explicar fuente ATX
+Verificación del funcionamiento
+Pruebas y verificacion
+Bibliografia
