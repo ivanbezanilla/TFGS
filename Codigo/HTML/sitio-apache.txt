@@ -1,0 +1,25 @@
+sudo nano /etc/apache2/sites-available/jarduino.conf
+
+<VirtualHost *:80>
+    ServerAdmin webmaster@example.com
+    DocumentRoot /var/www/html
+    ServerName tu-dominio.com
+    ServerAlias www.tu-dominio.com
+
+    <Directory /var/www/html>
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    DirectoryIndex inicio_sesion.php
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+sudo a2dissite 000-default.conf
+
+sudo a2ensite jarduino.conf
+
+sudo systemctl restart apache2
